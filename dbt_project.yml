@@ -1,0 +1,35 @@
+# Name your project! Project names should contain only lowercase characters
+# and underscores. A good package name should reflect the organization's
+# name or the intended use of these models
+name: 'jaffle_shop'
+version: '1.0.0'
+config-version: 2
+
+# This setting configures which dbt profile to use.
+profile: 'default'
+
+# These configurations specify where dbt should look for different types of files.
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+target-path: "target"
+
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+
+# Configuring models
+models:
+  jaffle_shop:
+    +required_tests: {"unique.*|not_null": 1}
+    marts:
+      +materialized: table
+
+
+    staging:
+      +materialized: view
