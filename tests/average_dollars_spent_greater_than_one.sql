@@ -1,13 +1,6 @@
-{% test average_dollars_spent_greater_than_one(model, column_name, group_by_column) %}
-
 select
-    {{ group_by_column }},
-    avg({{ column_name }}) as average_amount
-
-from {{ model }}
-
-group by {{ group_by_column }}
-
-having avg({{ column_name }}) < 1
-
-{% endtest %}
+    customer_id,
+    avg(amount) as average_amount
+from {{ ref('orders') }}
+group by customer_id
+having avg(amount) <= 1
