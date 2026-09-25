@@ -14,19 +14,19 @@ models:
           - not_null
       - name: amount
         description: Dollars spent per order
-        tests: 
+        tests:
           - dollars_spent_greater_than_one:
               group_by_column: customer_id
-          - dbt_expectations.expect_column_values_to_be_between: 
-          # this will perform what the dbt_utils.expression-is-true test does!
+
+          - dbt_expectations.expect_column_values_to_be_between:
               min_value: 0
-              row_condition: "order_id is not null" 
+              row_condition: "order_id is not null"
               strictly: false
-          - dbt_expectations.expect_column_mean_to_be_between: 
-          # this will perform what our singular and generic tests do!
+
+          - dbt_expectations.expect_column_mean_to_be_between:
               min_value: 1
-              group_by: [customer_id] 
-              row_condition: "order_id is not null" # (Optional)
+              group_by: [customer_id]
+              row_condition: "order_id is not null"
               strictly: false
 
       - name: customer_id
